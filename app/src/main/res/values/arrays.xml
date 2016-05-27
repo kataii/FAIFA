@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="counterType">
+        <item>1 Phase 3/9 A</item>
+        <item>1 Phase 5/40 A</item>
+        <item>1 Phase 5/80 A</item>
+        <item>3 Phase ຕໍ່ກົງ</item>
+        <item>3 Phase ຕໍ່ຜ່ານ 0.4kV CT</item>
+        <item>3 Phase ຕໍ່ຜ່ານ 22kV PT &amp; CT</item>
+        <item>3 Phase ຕໍ່ຜ່ານ 115kV PT &amp; CT</item>
+        <item>AMR ຕໍ່ຜ່ານ 22kV PT &amp; CT</item>
+        <item>AMR ຕໍ່ຜ່ານ 115kV PT &amp; CT</item>
+    </string-array>
+</resources>
