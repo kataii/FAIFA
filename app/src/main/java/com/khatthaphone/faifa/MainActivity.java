@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText lastValue, currentValue, powerUsed, dept;
+    EditText lastValue, currentValue, powerUsed, eDept;
     Button btnCaculate;
     Spinner counterType;
-    int powerUsedValue;
-    double actualCost, totalCost, lowValueCost, normalValueCost, highValueCost;
+    int powerUsedValue, lowPoerUsedValue, normalPowerUsedValue, highPowerUsedValue;
+    double actualCost, totalCost, lowValueCost, normalValueCost, highValueCost, fee, dept, counterPrice;
 
     double lowValuePrice = 348;
     double normalValuePrice = 414;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lastValue = (EditText) findViewById(R.id.lastValue);
         currentValue = (EditText) findViewById(R.id.currentValue);
         powerUsed = (EditText) findViewById(R.id.powerUsed);
-        dept = (EditText) findViewById(R.id.dept);
+        eDept = (EditText) findViewById(R.id.dept);
         btnCaculate = (Button) findViewById(R.id.btnCalculate);
         counterType = (Spinner) findViewById(R.id.counterType);
 
@@ -66,20 +66,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == R.id.btnCalculate) {
 
             if (powerUsedValue <= 25) {
-                actualCost = powerUsedValue*lowValuePrice;
+                lowPoerUsedValue = powerUsedValue;
+                lowValueCost = powerUsedValue*lowValuePrice;
+                actualCost = lowValueCost;
             }
 
-            double counterPrice = getCounterPrice();
-            showDialog(counterPrice, actualCost);
+            if (powerUsedValue >= 26 && powerUsedValue <= 150) {
+                lowPoerUsedValue = 25;
+                lowValueCost = lowPoerUsedValue*lowValuePrice;
+                normalValueCost = (powerUsedValue-lowPoerUsedValue)*normalValuePrice;
+                actualCost = lowValueCost + normalValueCost;
+            }
+
+            if (powerUsedValue > 150) {
+                lowPoerUsedValue = 25;
+                lowValueCost = lowPoerUsedValue*lowValuePrice;
+                normalPowerUsedValue = (150-lowPoerUsedValue);
+                normalValueCost = normalPowerUsedValue*normalValuePrice;
+                highPowerUsedValue = powerUsedValue-150;
+                highValueCost = highPowerUsedValue*highValuePrice;
+                actualCost = lowValueCost + normalValueCost + highValueCost;
+            }
+
+            dept = getDept();
+            counterPrice = getCounterPrice();
+            fee = (counterPrice+actualCost)*0.1;
+            totalCost = actualCost + fee + counterPrice + dept;
+            showDialog(counterPrice, actualCost, fee, dept, totalCost);
 
         }
     }
 
-    private void showDialog(double counterPrice, double actualCost) {
+    private double getDept() {
+        double DEPT = 0;
+        try {
+            DEPT = Double.parseDouble(eDept.getText().toString());
+        } catch (Exception e) {
+
+        } finally {
+            if (!(DEPT==0)) {
+                return DEPT;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+
+    private void showDialog(double counterPrice, double actualCost, double fee, double dept, double totalCost) {
         Dialog d = new Dialog(this);
         TextView tv = new TextView(this);
-        tv.setText("Counter Price: " + counterPrice + "\n"
-        + "Power <25 kW price: " + actualCost);
+        tv.setText("Power " + lowPoerUsedValue + "kW price: " + lowValueCost + "\n" + "Power " + normalPowerUsedValue + "kW: " + normalValueCost + "\n" + "Power " + highPowerUsedValue + "kW: " + highValueCost + "\n" + "Actual price: " + (actualCost) + "\n" + "Fee: " + fee + "\n" + "Counter Price: " + counterPrice + "\n" + "Dept: " + dept + "\n" + "Total: " + totalCost);
         tv.setPadding(20, 20, 20, 20);
         d.setContentView(tv);
         d.show();
@@ -88,7 +125,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private double getCounterPrice() {
         String counter = counterType.getSelectedItem().toString();
         double price = 0;
-        switch (counter) {
+        Log.i("Counter Price: ", counter);
+        if (counter.equals("1 Phase 3/9 A")) {
+            price = 1400;
+        }
+        if (counter.equals("1 Phase 5/40 A")) {
+            price = 4200;
+        }
+        if (counter.equals("1 Phase 5/80 A")) {
+            price = 5200;
+        }
+        if (counter.equals("3 Phase ຕໍ່ກົງ")) {
+            price = 14000;
+        }
+        if (counter.equals("3 Phase ຕໍ່ຜ່ານ 0.4kV CT")) {
+            price = 84400;
+        }
+        if (counter.equals("3 Phase ຕໍ່ຜ່ານ 22kV PT & CT") | counter.equals("3 Phase ຕໍ່ຜ່ານ 115kV PT & CT")) {
+            price = 84400;
+        }
+        if (counter.equals("AMR ຕໍ່ຜ່ານ 22kV PT & CT") | counter.equals("AMR ຕໍ່ຜ່ານ 115kV PT & CT")) {
+            price = 125300;
+        }
+/*        switch (counter) {
             case "1 Phase 3/9 A":
                 price = 1400;
             case "1 Phase 5/40 A":
@@ -107,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 price = 125300;
             case "AMR ຕໍ່ຜ່ານ 115kV PT &amp; CT":
                 price = 125300;
-        }
+        }*/
         return price;
     }
 }
