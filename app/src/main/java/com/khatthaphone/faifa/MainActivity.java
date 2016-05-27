@@ -1,6 +1,8 @@
 package com.khatthaphone.faifa;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -93,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fee = (counterPrice+actualCost)*0.1;
             totalCost = actualCost + fee + counterPrice + dept;
             showDialog(counterPrice, actualCost, fee, dept, totalCost);
-
         }
     }
 
@@ -120,6 +121,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv.setPadding(20, 20, 20, 20);
         d.setContentView(tv);
         d.show();
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                startViewDetalsActivity();
+            }
+        });
     }
 
     private double getCounterPrice() {
@@ -168,5 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 price = 125300;
         }*/
         return price;
+    }
+
+    public void startViewDetalsActivity() {
+        Intent intent = new Intent(this, ViewDetails.class);
+        startActivity(intent);
     }
 }
