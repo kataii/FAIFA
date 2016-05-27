@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText lastValue, currentValue, powerUsed, eDept;
     Button btnCaculate;
     Spinner counterType;
-    int powerUsedValue, lowPoerUsedValue, normalPowerUsedValue, highPowerUsedValue;
+    int powerUsedValue, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue;
     double actualCost, totalCost, lowValueCost, normalValueCost, highValueCost, fee, dept, counterPrice;
 
     double lowValuePrice = 348;
@@ -68,22 +68,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == R.id.btnCalculate) {
 
             if (powerUsedValue <= 25) {
-                lowPoerUsedValue = powerUsedValue;
+                lowPowerUsedValue = powerUsedValue;
                 lowValueCost = powerUsedValue*lowValuePrice;
                 actualCost = lowValueCost;
             }
 
             if (powerUsedValue >= 26 && powerUsedValue <= 150) {
-                lowPoerUsedValue = 25;
-                lowValueCost = lowPoerUsedValue*lowValuePrice;
-                normalValueCost = (powerUsedValue-lowPoerUsedValue)*normalValuePrice;
+                lowPowerUsedValue = 25;
+                lowValueCost = lowPowerUsedValue *lowValuePrice;
+                normalValueCost = (powerUsedValue- lowPowerUsedValue)*normalValuePrice;
                 actualCost = lowValueCost + normalValueCost;
             }
 
             if (powerUsedValue > 150) {
-                lowPoerUsedValue = 25;
-                lowValueCost = lowPoerUsedValue*lowValuePrice;
-                normalPowerUsedValue = (150-lowPoerUsedValue);
+                lowPowerUsedValue = 25;
+                lowValueCost = lowPowerUsedValue *lowValuePrice;
+                normalPowerUsedValue = (150- lowPowerUsedValue);
                 normalValueCost = normalPowerUsedValue*normalValuePrice;
                 highPowerUsedValue = powerUsedValue-150;
                 highValueCost = highPowerUsedValue*highValuePrice;
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void showDialog(double counterPrice, double actualCost, double fee, double dept, double totalCost) {
         Dialog d = new Dialog(this);
         TextView tv = new TextView(this);
-        tv.setText("Power " + lowPoerUsedValue + "kW price: " + lowValueCost + "\n" + "Power " + normalPowerUsedValue + "kW: " + normalValueCost + "\n" + "Power " + highPowerUsedValue + "kW: " + highValueCost + "\n" + "Actual price: " + (actualCost) + "\n" + "Fee: " + fee + "\n" + "Counter Price: " + counterPrice + "\n" + "Dept: " + dept + "\n" + "Total: " + totalCost);
+        tv.setText("Power " + lowPowerUsedValue + "kW price: " + lowValueCost + "\n" + "Power " + normalPowerUsedValue + "kW: " + normalValueCost + "\n" + "Power " + highPowerUsedValue + "kW: " + highValueCost + "\n" + "Actual price: " + (actualCost) + "\n" + "Fee: " + fee + "\n" + "Counter Price: " + counterPrice + "\n" + "Dept: " + dept + "\n" + "Total: " + totalCost);
         tv.setPadding(20, 20, 20, 20);
         d.setContentView(tv);
         d.show();
@@ -179,6 +179,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void startViewDetalsActivity() {
         Intent intent = new Intent(this, ViewDetails.class);
+
+//        powerUsed, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, lowValueCost, normalValueCost, highValueCost, actualCost, counterPrice, fee, dept, totalCost;
+
+        intent.putExtra("powerUsedValue", powerUsedValue);
+        intent.putExtra("lowPowerUsedValue", lowPowerUsedValue);
+        intent.putExtra("normalPowerUsedValue", normalPowerUsedValue);
+        intent.putExtra("highPowerUsedValue", highPowerUsedValue);
+        intent.putExtra("lowValueCost", lowValueCost);
+        intent.putExtra("normalValueCost", normalValueCost);
+        intent.putExtra("highValueCost", highValueCost);
+        intent.putExtra("actualCost", actualCost);
+        intent.putExtra("counterPrice", counterPrice);
+        intent.putExtra("fee", fee);
+        intent.putExtra("dept", dept);
+        intent.putExtra("totalCost", totalCost);
+
         startActivity(intent);
     }
 }
