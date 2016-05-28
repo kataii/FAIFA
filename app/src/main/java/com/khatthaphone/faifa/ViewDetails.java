@@ -8,11 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
+import java.text.DecimalFormat;
+
 public class ViewDetails extends AppCompatActivity {
 
     EditText powerUsed, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, lowValueCost, normalValueCost, highValueCost, actualCost, counterPrice, fee, dept, totalCost;
     int iPowerUsedValue, iLowPowerUsedValue, iNormalPowerUsedValue, iHighPowerUsedValue;
     Double iLowValueCost, iNormalValueCost, iHighValueCost, iActualCost, iCounterPrice, iFee, iDept, iTotalCost;
+    String power;
     Bundle bundle;
 
     @Override
@@ -22,30 +25,74 @@ public class ViewDetails extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        powerUsed = (EditText) findViewById(R.id.powerUsed);
+        castViews();
+
+        disableFocus();
+
+        styling();
+
+        getExtras();
+
+//        setTexts();
+    }
+
+    private void getExtras() {
+
+
+        String powerUsedValue = MainActivity.bundle.getString("powerUsedValue") + " kW";
+        powerUsed.setText(powerUsedValue);
+        String lowPowerUsedValue = MainActivity.bundle.getString("lowPowerUsedValue") + " kW";
+        this.lowPowerUsedValue.setText(lowPowerUsedValue);
+        String normalPowerUsedValue = MainActivity.bundle.getString("normalPowerUsedValue") + " kW";
+        this.normalPowerUsedValue.setText(normalPowerUsedValue);
+        String highPowerUsedValue = MainActivity.bundle.getString("highPowerUsedValue") + " kW";
+        this.highPowerUsedValue.setText(highPowerUsedValue);
+        String lowValueCost = MainActivity.bundle.getString("lowValueCost");
+        this.lowValueCost.setText(lowValueCost);
+        String normalValueCost = MainActivity.bundle.getString("normalValueCost");
+        this.normalValueCost.setText(normalValueCost);
+        String highValueCost = MainActivity.bundle.getString("highValueCost");
+        this.highValueCost.setText(highValueCost);
+        String actualCost = MainActivity.bundle.getString("actualCost");
+        this.actualCost.setText(actualCost);
+        String counterPrice = MainActivity.bundle.getString("counterPrice");
+        this.counterPrice.setText(counterPrice);
+        String fee = MainActivity.bundle.getString("fee");
+        this.fee.setText(fee);
+        String dept = MainActivity.bundle.getString("dept");
+        this.dept.setText(dept);
+        String totalCost = MainActivity.bundle.getString("totalCost");
+        this.totalCost.setText(totalCost);
+
+    }
+
+    String formatDecimal(String number) {
+        DecimalFormat format = new DecimalFormat("###,###");
+        String formattedText = format.format(number);
+        return formattedText;
+    }
+
+    private void castViews() {
+        powerUsed = (EditText) findViewById(R.id.powerUsedValue);
         lowPowerUsedValue = (EditText) findViewById(R.id.lowPowerUsedValue);
         normalPowerUsedValue = (EditText) findViewById(R.id.normalPowerUsedValue);
         highPowerUsedValue = (EditText) findViewById(R.id.highPowerUsedValue);
-        lowValueCost = (EditText) findViewById(R.id.normalValueCost);
-        normalValueCost = (EditText) findViewById(R.id.highValueCost);
+        lowValueCost = (EditText) findViewById(R.id.lowValueCost);
+        normalValueCost = (EditText) findViewById(R.id.normalValueCost);
         highValueCost = (EditText) findViewById(R.id.highValueCost);
         actualCost = (EditText) findViewById(R.id.actualCost);
         counterPrice = (EditText) findViewById(R.id.counterPrice);
         fee = (EditText) findViewById(R.id.fee);
         dept = (EditText) findViewById(R.id.dept);
         totalCost = (EditText) findViewById(R.id.totalCost);
+    }
 
-        disableFocus();
-
-        bundle = getIntent().getExtras();
-        iPowerUsedValue = bundle.getInt("powerUsedValue");
-        iLowPowerUsedValue = bundle.getInt("lowPowerUsedValue");
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.save);
-        fab.setOnClickListener(new View.OnClickListener() {
+    private void styling() {
+        FloatingActionButton save = (FloatingActionButton) findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "ໃຈເຢັນໆ, ຟີເຈີ້ການບັນທຶກຄ່າໄຟກຳລັງຢູ່ໃນຂັ້ນຕອນການພັດທະນາ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

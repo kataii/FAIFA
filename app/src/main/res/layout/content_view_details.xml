@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="vertical">
 
         <LinearLayout
@@ -34,6 +34,7 @@
                 android:textSize="16dp" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/powerUsedValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -60,6 +61,7 @@
                 android:text="0-25kV:" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/lowPowerUsedValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -72,6 +74,7 @@
                 android:text=" = " />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/lowValueCost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -97,6 +100,7 @@
                 android:text="26-150kV:" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/normalPowerUsedValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -109,6 +113,7 @@
                 android:text=" = " />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/normalValueCost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -134,6 +139,7 @@
                 android:text="26-150kV:" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/highPowerUsedValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -146,6 +152,7 @@
                 android:text=" = " />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/highValueCost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -167,6 +174,7 @@
                 android:text="ລວມ:" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/actualCost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -196,6 +204,7 @@
                 android:text="ຄ່າເຊົ່າກົງເຕີ:" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/counterPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -217,6 +226,7 @@
                 android:text="ພາສີ 10%:" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/fee"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -235,9 +245,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
-                android:text="ໜີ້ຄ້າງຈ່ສຍ:" />
+                android:text="ໜີ້ຄ້າງຈ່າຍ:" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/dept"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -251,20 +262,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:elevation="4dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
-            android:text="ລວມທັງໝົດ:" />
+            android:text="ລວມທັງໝົດ:"
+            android:textSize="20dp" />
 
         <EditText
+            android:gravity="right"
             android:id="@+id/totalCost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.8"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textSize="20dp"
+            android:textStyle="bold|italic"/>
 
     </LinearLayout>
 
