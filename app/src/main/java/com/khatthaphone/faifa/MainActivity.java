@@ -4,12 +4,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner counterType;
     TextView powerUsed;
     EditText lastValue, currentValue, eDept, eMultiplier;
+    Button calculate;
     double lowValuePrice = 348;
     double normalValuePrice = 414;
     double highValuePrice = 999;
@@ -40,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         powerUsed = (TextView) findViewById(R.id.powerUsed);
         eDept = (EditText) findViewById(R.id.dept);
         counterType = (Spinner) findViewById(R.id.counterType);
-        eMultiplier = (EditText) findViewById(R.id.multiplier); multiplier = 1; eMultiplier.setText("" + multiplier);
+        eMultiplier = (EditText) findViewById(R.id.multiplier);
+        multiplier = 1;
+        eMultiplier.setText("" + multiplier);
+        calculate = (Button) findViewById(R.id.calculate);
 
         powerUsed.setFocusable(false);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.counterType, android.R.layout.simple_spinner_dropdown_item);
@@ -49,6 +53,51 @@ public class MainActivity extends AppCompatActivity {
 
         valueSync();
 
+        calculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                valueSync2();
+                powerUsed.setText("" + powerUsedValue);
+                powerUsedError(powerUsedValue);
+
+                if (powerUsedError(powerUsedValue)) {
+                    powerUsedError();
+                } else {
+                    if (powerUsedValue <= 25) {
+                        lowPowerUsedValue = powerUsedValue;
+                        lowValueCost = powerUsedValue * lowValuePrice;
+                        actualCost = lowValueCost;
+                    }
+
+                    if (powerUsedValue >= 26 && powerUsedValue <= 150) {
+                        lowPowerUsedValue = 25;
+                        lowValueCost = lowPowerUsedValue * lowValuePrice;
+                        normalPowerUsedValue = powerUsedValue - lowPowerUsedValue;
+                        normalValueCost = (powerUsedValue - lowPowerUsedValue) * normalValuePrice;
+                        actualCost = lowValueCost + normalValueCost;
+                    }
+
+                    if (powerUsedValue > 150) {
+                        lowPowerUsedValue = 25;
+                        lowValueCost = lowPowerUsedValue * lowValuePrice;
+                        normalPowerUsedValue = (150 - lowPowerUsedValue);
+                        normalValueCost = normalPowerUsedValue * normalValuePrice;
+                        highPowerUsedValue = powerUsedValue - 150;
+                        highValueCost = highPowerUsedValue * highValuePrice;
+                        actualCost = lowValueCost + normalValueCost + highValueCost;
+                    }
+
+                    dept = TryGetDept();
+                    counterPrice = getCounterPriceByType();
+                    fee = (counterPrice + actualCost) * 0.1;
+                    totalCost = actualCost + fee + counterPrice + dept;
+                    showDialog(counterPrice, actualCost, fee, dept, totalCost, multiplier);
+                    startViewDetailsActivity();
+                }
+            }
+        });
+
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.next);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     startViewDetailsActivity();
                 }
             }
-        });
+        });*/
     }
 
     private void powerUsedError() {
@@ -112,11 +161,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private boolean powerUsedError(int powerUsedValue) {
         if (powerUsedValue < 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -124,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     private void valueSync2() {
         try {
             multiplier = Integer.parseInt(eMultiplier.getText().toString());
-            powerUsedValue = ((Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString()))*multiplier;
+            powerUsedValue = ((Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString())) * multiplier;
             Log.i("MainActivity", "" + powerUsedValue);
         } catch (Exception e) {
 
@@ -148,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } finally {
 //                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+                        powerUsed.setText("" + powerUsedValue);
 //                        }
                     }
                 }
@@ -165,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } finally {
 //                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+                        powerUsed.setText("" + powerUsedValue);
 //                        }
                     }
                 }
@@ -183,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } finally {
 //                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+                        powerUsed.setText("" + powerUsedValue);
 //                        }
                     }
                 }
@@ -200,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } finally {
 //                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+                        powerUsed.setText("" + powerUsedValue);
 //                        }
                     }
                 }

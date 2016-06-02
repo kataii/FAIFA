@@ -355,7 +355,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.8"
                 android:gravity="right"
-                android:textSize="25dp"
+                android:textSize="23dp"
                 android:textStyle="bold|italic" />
 
         </LinearLayout>
