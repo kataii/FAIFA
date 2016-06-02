@@ -30,13 +30,13 @@
 
         </android.support.design.widget.AppBarLayout>
 
-<!--        <android.support.design.widget.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_menu_send" />-->
+            android:src="@android:drawable/ic_menu_send" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -158,7 +158,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
@@ -184,7 +184,8 @@
 
                 <EditText
                     android:id="@+id/multiplier"
-                    android:layout_width="match_parent"
+                    android:layout_width="70dp"
+                    android:gravity="center_horizontal"
                     android:layout_height="match_parent"
                     android:hint="ຕົວຄູນ"
                     android:inputType="numberDecimal" />
@@ -194,8 +195,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:layout_margin="10dp"
@@ -217,7 +220,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="2"
+                android:layout_weight="2.2"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -265,19 +268,6 @@
             android:layout_height="0dp"
             android:layout_weight="0.5">
         </LinearLayout>
-
-        <Button
-            android:id="@+id/calculate"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="25dp"
-            android:text="ຄິດໄລ່ຄ່າໄຟ &gt;"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_gravity="bottom"
-            android:gravity="center_horizontal|center_vertical"/>
 
     </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
