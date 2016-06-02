@@ -13,276 +13,353 @@
     tools:context="com.khatthaphone.faifa.ViewDetails"
     tools:showIn="@layout/activity_view_details">
 
+    <!--    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="2"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_marginBottom="20dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.8"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/ic_flash_on_black_48dp" />
+
+                <!--            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="ກຳລັງໄຟຟ້າທີໃຊ້ໃນເດືອນ:"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:gravity="right"
+                                android:id="@+id/powerUsedValue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"/>-->
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <EditText
+                        android:id="@+id/powerUsedValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="ກຳລັງໄຟຟ້າທີໃຊ້ໃນເດືອນ:"
+                        app:theme="@style/ThemeOverlay.AppCompat.Light" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="ກຳລັງໄຟຟ້າທີໃຊ້ໃນເດືອນ:"
-                android:textSize="16dp" />
+                android:orientation="horizontal">
 
-            <EditText
-                android:gravity="right"
-                android:id="@+id/powerUsedValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:inputType="number" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="0-25kV:" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lowPowerUsedValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" = " />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="0-25kV:" />
+                <TextView
+                    android:id="@+id/lowValueCost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="right" />
+            </LinearLayout>
 
-            <EditText
-                android:gravity="right"
-                android:id="@+id/lowPowerUsedValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="26-150kV:" />
+
+                <TextView
+                    android:id="@+id/normalPowerUsedValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" = " />
+
+                <TextView
+                    android:id="@+id/normalValueCost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
+                    android:text="26-150kV:" />
+
+                <TextView
+                    android:id="@+id/highPowerUsedValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" = " />
+
+                <TextView
+                    android:id="@+id/highValueCost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="230dp"
+                    android:text="ຕົວຄູນ:" />
+
+                <TextView
+                    android:id="@+id/multiplier"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1.8"
-                android:inputType="number" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" = " />
+                <!--                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="50dp"
+                                        android:layout_marginRight="50dp"
+                                        android:text="ລວມ:" />-->
 
-            <EditText
-                android:gravity="right"
-                android:id="@+id/lowValueCost"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:inputType="number" />
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/actualCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:hint="ລວມ:"
+                        android:textColor="@color/colorAccent" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="26-150kV:" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/ic_timer_black_48dp" />
 
-            <EditText
-                android:gravity="right"
-                android:id="@+id/normalPowerUsedValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.8"
-                android:inputType="number" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:text="ຄ່າເຊົ່າກົງເຕີ:" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" = " />
+                <TextView
+                    android:id="@+id/counterPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
 
-            <EditText
-                android:gravity="right"
-                android:id="@+id/normalValueCost"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/ic_content_paste_black_48dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:text="ພາສີ 10%:" />
+
+                <TextView
+                    android:id="@+id/fee"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/ic_assignment_black_48dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:text="ໜີ້ຄ້າງຈ່າຍ:" />
+
+                <TextView
+                    android:id="@+id/dept"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
+            android:layout_marginBottom="80dp"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
+            <ImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.6"
-                android:text="26-150kV:" />
-
-            <EditText
-                android:gravity="right"
-                android:id="@+id/highPowerUsedValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.8"
-                android:inputType="number" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" = " />
-
-            <EditText
-                android:gravity="right"
-                android:id="@+id/highValueCost"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:inputType="number" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:text="ລວມ:" />
-
-            <EditText
-                android:gravity="right"
-                android:id="@+id/actualCost"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.8"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="0.3"
+                android:src="@drawable/ic_local_atm_black_48dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
-                android:text="ຄ່າເຊົ່າກົງເຕີ:" />
-
-            <EditText
-                android:gravity="right"
-                android:id="@+id/counterPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.8"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+                android:text="ລວມ:"
+                android:textSize="20dp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:text="ພາສີ 10%:" />
-
-            <EditText
-                android:gravity="right"
-                android:id="@+id/fee"
+                android:id="@+id/totalCost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.8"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:text="ໜີ້ຄ້າງຈ່າຍ:" />
-
-            <EditText
                 android:gravity="right"
-                android:id="@+id/dept"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.8"
-                android:inputType="number" />
+                android:textSize="25dp"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:elevation="4dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="40dp"
-            android:text="ລວມທັງໝົດ:"
-            android:textSize="20dp" />
-
-        <EditText
-            android:gravity="right"
-            android:id="@+id/totalCost"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.8"
-            android:inputType="number"
-            android:textSize="20dp"
-            android:textStyle="bold|italic"/>
-
-    </LinearLayout>
-
+    <!--    </ScrollView>-->
 
 </LinearLayout>

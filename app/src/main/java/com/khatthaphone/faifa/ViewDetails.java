@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
 public class ViewDetails extends AppCompatActivity {
 
-    EditText powerUsed, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, lowValueCost, normalValueCost, highValueCost, actualCost, counterPrice, fee, dept, totalCost;
+    TextView lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, lowValueCost, normalValueCost, highValueCost, counterPrice, fee, dept, totalCost, multiplier;
+    EditText powerUsed, actualCost;
     int iPowerUsedValue, iLowPowerUsedValue, iNormalPowerUsedValue, iHighPowerUsedValue;
     Double iLowValueCost, iNormalValueCost, iHighValueCost, iActualCost, iCounterPrice, iFee, iDept, iTotalCost;
     String power;
@@ -53,6 +55,8 @@ public class ViewDetails extends AppCompatActivity {
         this.normalValueCost.setText(normalValueCost);
         String highValueCost = MainActivity.bundle.getString("highValueCost");
         this.highValueCost.setText(highValueCost);
+        String multiplier = MainActivity.bundle.getString("multiplier");
+        this.multiplier.setText(multiplier);
         String actualCost = MainActivity.bundle.getString("actualCost");
         this.actualCost.setText(actualCost);
         String counterPrice = MainActivity.bundle.getString("counterPrice");
@@ -74,17 +78,20 @@ public class ViewDetails extends AppCompatActivity {
 
     private void castViews() {
         powerUsed = (EditText) findViewById(R.id.powerUsedValue);
-        lowPowerUsedValue = (EditText) findViewById(R.id.lowPowerUsedValue);
-        normalPowerUsedValue = (EditText) findViewById(R.id.normalPowerUsedValue);
-        highPowerUsedValue = (EditText) findViewById(R.id.highPowerUsedValue);
-        lowValueCost = (EditText) findViewById(R.id.lowValueCost);
-        normalValueCost = (EditText) findViewById(R.id.normalValueCost);
-        highValueCost = (EditText) findViewById(R.id.highValueCost);
+        lowPowerUsedValue = (TextView) findViewById(R.id.lowPowerUsedValue);
+        normalPowerUsedValue = (TextView) findViewById(R.id.normalPowerUsedValue);
+        highPowerUsedValue = (TextView) findViewById(R.id.highPowerUsedValue);
+        lowValueCost = (TextView) findViewById(R.id.lowValueCost);
+        normalValueCost = (TextView) findViewById(R.id.normalValueCost);
+        highValueCost = (TextView) findViewById(R.id.highValueCost);
+        multiplier = (TextView) findViewById(R.id.multiplier);
         actualCost = (EditText) findViewById(R.id.actualCost);
-        counterPrice = (EditText) findViewById(R.id.counterPrice);
-        fee = (EditText) findViewById(R.id.fee);
-        dept = (EditText) findViewById(R.id.dept);
-        totalCost = (EditText) findViewById(R.id.totalCost);
+        counterPrice = (TextView) findViewById(R.id.counterPrice);
+        fee = (TextView) findViewById(R.id.fee);
+        dept = (TextView) findViewById(R.id.dept);
+        totalCost = (TextView) findViewById(R.id.totalCost);
+
+        actualCost.setFocusable(false);
     }
 
     private void styling() {
@@ -101,17 +108,17 @@ public class ViewDetails extends AppCompatActivity {
 
     private void disableFocus() {
         powerUsed.setFocusable(false);
-        lowPowerUsedValue.setFocusable(false);
-        normalPowerUsedValue.setFocusable(false);
-        highPowerUsedValue.setFocusable(false);
-        lowValueCost.setFocusable(false);
-        normalValueCost.setFocusable(false);
-        highValueCost.setFocusable(false);
-        actualCost.setFocusable(false);
-        counterPrice.setFocusable(false);
-        fee.setFocusable(false);
-        dept.setFocusable(false);
-        totalCost.setFocusable(false);
+//        lowPowerUsedValue.setFocusable(false);
+//        normalPowerUsedValue.setFocusable(false);
+//        highPowerUsedValue.setFocusable(false);
+//        lowValueCost.setFocusable(false);
+//        normalValueCost.setFocusable(false);
+//        highValueCost.setFocusable(false);
+//        actualCost.setFocusable(false);
+//        counterPrice.setFocusable(false);
+//        fee.setFocusable(false);
+//        dept.setFocusable(false);
+//        totalCost.setFocusable(false);
     }
 
 }

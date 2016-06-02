@@ -14,19 +14,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
-    EditText lastValue, currentValue, powerUsed, eDept;
-    Spinner counterType;
-    public static int powerUsedValue, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, counterPosition;
+    public static int powerUsedValue, multiplier, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, counterPosition;
     public static double actualCost, totalCost, lowValueCost, normalValueCost, highValueCost, fee, dept, counterPrice;
-
+    public static Bundle bundle = new Bundle();
+    Spinner counterType;
+    TextView powerUsed;
+    EditText lastValue, currentValue, eDept, eMultiplier;
     double lowValuePrice = 348;
     double normalValuePrice = 414;
     double highValuePrice = 999;
-
-    public static Bundle bundle = new Bundle();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         lastValue = (EditText) findViewById(R.id.lastValue);
         currentValue = (EditText) findViewById(R.id.currentValue);
-        powerUsed = (EditText) findViewById(R.id.powerUsed);
+        powerUsed = (TextView) findViewById(R.id.powerUsed);
         eDept = (EditText) findViewById(R.id.dept);
         counterType = (Spinner) findViewById(R.id.counterType);
+        eMultiplier = (EditText) findViewById(R.id.multiplier); multiplier = 1; eMultiplier.setText("" + multiplier);
 
         powerUsed.setFocusable(false);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.counterType, android.R.layout.simple_spinner_dropdown_item);
@@ -48,42 +49,90 @@ public class MainActivity extends AppCompatActivity {
 
         valueSync();
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.next);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (powerUsedValue <= 25) {
-                    lowPowerUsedValue = powerUsedValue;
-                    lowValueCost = powerUsedValue * lowValuePrice;
-                    actualCost = lowValueCost;
-                }
 
-                if (powerUsedValue >= 26 && powerUsedValue <= 150) {
-                    lowPowerUsedValue = 25;
-                    lowValueCost = lowPowerUsedValue * lowValuePrice;
-                    normalValueCost = (powerUsedValue - lowPowerUsedValue) * normalValuePrice;
-                    actualCost = lowValueCost + normalValueCost;
-                }
 
-                if (powerUsedValue > 150) {
-                    lowPowerUsedValue = 25;
-                    lowValueCost = lowPowerUsedValue * lowValuePrice;
-                    normalPowerUsedValue = (150 - lowPowerUsedValue);
-                    normalValueCost = normalPowerUsedValue * normalValuePrice;
-                    highPowerUsedValue = powerUsedValue - 150;
-                    highValueCost = highPowerUsedValue * highValuePrice;
-                    actualCost = lowValueCost + normalValueCost + highValueCost;
-                }
+                valueSync2();
+                powerUsed.setText("" + powerUsedValue);
+                powerUsedError(powerUsedValue);
 
-                dept = TryGetDept();
-                counterPrice = getCounterPriceByType();
-                fee = (counterPrice + actualCost) * 0.1;
-                totalCost = actualCost + fee + counterPrice + dept;
-                showDialog(counterPrice, actualCost, fee, dept, totalCost);
-                startViewDetailsActivity();
+                if (powerUsedError(powerUsedValue)) {
+                    powerUsedError();
+                } else {
+                    if (powerUsedValue <= 25) {
+                        lowPowerUsedValue = powerUsedValue;
+                        lowValueCost = powerUsedValue * lowValuePrice;
+                        actualCost = lowValueCost;
+                    }
+
+                    if (powerUsedValue >= 26 && powerUsedValue <= 150) {
+                        lowPowerUsedValue = 25;
+                        lowValueCost = lowPowerUsedValue * lowValuePrice;
+                        normalPowerUsedValue = powerUsedValue - lowPowerUsedValue;
+                        normalValueCost = (powerUsedValue - lowPowerUsedValue) * normalValuePrice;
+                        actualCost = lowValueCost + normalValueCost;
+                    }
+
+                    if (powerUsedValue > 150) {
+                        lowPowerUsedValue = 25;
+                        lowValueCost = lowPowerUsedValue * lowValuePrice;
+                        normalPowerUsedValue = (150 - lowPowerUsedValue);
+                        normalValueCost = normalPowerUsedValue * normalValuePrice;
+                        highPowerUsedValue = powerUsedValue - 150;
+                        highValueCost = highPowerUsedValue * highValuePrice;
+                        actualCost = lowValueCost + normalValueCost + highValueCost;
+                    }
+
+                    dept = TryGetDept();
+                    counterPrice = getCounterPriceByType();
+                    fee = (counterPrice + actualCost) * 0.1;
+                    totalCost = actualCost + fee + counterPrice + dept;
+                    showDialog(counterPrice, actualCost, fee, dept, totalCost, multiplier);
+                    startViewDetailsActivity();
+                }
             }
         });
+    }
+
+    private void powerUsedError() {
+        Dialog d = new Dialog(this);
+        d.setTitle("ເກີດຂໍ້ຜິດພາດ");
+        TextView tv = new TextView(this);
+        tv.setText("ເລັກຈົດຄັ້ງນີ້ຕ້ອງຫຼາຍກວ່າເລກຈົດຄັ້ງກ່ອນ!");
+        tv.setPadding(20, 20, 20, 20);
+        d.setContentView(tv);
+        d.show();
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                lastValue.requestFocus();
+            }
+        });
+    }
+    private boolean powerUsedError(int powerUsedValue) {
+        if (powerUsedValue < 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void valueSync2() {
+        try {
+            multiplier = Integer.parseInt(eMultiplier.getText().toString());
+            powerUsedValue = ((Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString()))*multiplier;
+            Log.i("MainActivity", "" + powerUsedValue);
+        } catch (Exception e) {
+
+        } finally {
+            if (powerUsedValue > 0) {
+                powerUsed.setText("" + powerUsedValue);
+            }
+        }
     }
 
     private void valueSync() {
@@ -92,25 +141,71 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
-                    Log.i("MainActivity", " " + powerUsedValue);
-                    powerUsed.setText("" + powerUsedValue);
+                    try {
+                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + powerUsedValue);
+                    } catch (Exception e) {
 
+                    } finally {
+//                        if (powerUsedValue > 0) {
+                            powerUsed.setText("" + powerUsedValue);
+//                        }
+                    }
                 }
             }
         });
-//        currentValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//                if (!b) {
-//                    powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
-//                    Log.i("MainActivity", " " + powerUsedValue);
-//                    powerUsed.setText("" + powerUsedValue);
-//
-//                }
-//            }
-//        });
+        currentValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    try {
+                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + powerUsedValue);
+                    } catch (Exception e) {
 
+                    } finally {
+//                        if (powerUsedValue > 0) {
+                            powerUsed.setText("" + powerUsedValue);
+//                        }
+                    }
+                }
+            }
+        });
+
+        eDept.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    try {
+                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + powerUsedValue);
+                    } catch (Exception e) {
+
+                    } finally {
+//                        if (powerUsedValue > 0) {
+                            powerUsed.setText("" + powerUsedValue);
+//                        }
+                    }
+                }
+            }
+        });
+        eMultiplier.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    try {
+                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + powerUsedValue);
+                    } catch (Exception e) {
+
+                    } finally {
+//                        if (powerUsedValue > 0) {
+                            powerUsed.setText("" + powerUsedValue);
+//                        }
+                    }
+                }
+            }
+        });
     }
 
     private double TryGetDept() {
@@ -128,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showDialog(double counterPrice, double actualCost, double fee, double dept, double totalCost) {
+    private void showDialog(double counterPrice, double actualCost, double fee, double dept, double totalCost, int multiplier) {
         Dialog d = new Dialog(this);
         TextView tv = new TextView(this);
         tv.setText("Power " + lowPowerUsedValue + "kW price: " + lowValueCost + "\n" + "Power " + normalPowerUsedValue + "kW: " + normalValueCost + "\n" + "Power " + highPowerUsedValue + "kW: " + highValueCost + "\n" + "Actual price: " + (actualCost) + "\n" + "Fee: " + fee + "\n" + "Counter Price: " + counterPrice + "\n" + "Dept: " + dept + "\n" + "Total: " + totalCost);
@@ -192,27 +287,101 @@ public class MainActivity extends AppCompatActivity {
         return price;
     }
 
+    private static String formatNum(String pattern, double num) {
+        DecimalFormat format = new DecimalFormat(pattern);
+        String output = format.format(num);
+        return output;
+    }
+
+    private static String formatNum(String pattern, int num) {
+        DecimalFormat format = new DecimalFormat(pattern);
+        String output = format.format(num);
+        return output;
+    }
+
     public void startViewDetailsActivity() {
         Intent intent = new Intent(this, ViewDetails.class);
 
 //        powerUsed, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, lowValueCost, normalValueCost, highValueCost, actualCost, counterPrice, fee, dept, totalCost;
+        bundle.putString("powerUsedValue", "" + formatNum("###,###", powerUsedValue));
 
-        bundle.putString("powerUsedValue", "" + powerUsedValue);
-        bundle.putString("lowPowerUsedValue", "" + lowPowerUsedValue);
-        bundle.putString("normalPowerUsedValue", "" + normalPowerUsedValue);
-        bundle.putString("highPowerUsedValue", "" + highPowerUsedValue);
-        bundle.putString("lowValueCost", "" + lowValueCost);
-        bundle.putString("normalValueCost", "" + normalValueCost);
-        bundle.putString("highValueCost", "" + highValueCost);
-        bundle.putString("actualCost", "" + actualCost);
-        bundle.putString("counterPrice", "" + counterPrice);
-        bundle.putString("fee", "" + fee);
-        bundle.putString("dept", "" + dept);
-        bundle.putString("totalCost", "" + totalCost);
+        bundle.putString("multiplier", "" + multiplier);
+
+        bundle.putString("lowPowerUsedValue", "" + formatNum("###,###", lowPowerUsedValue));
+
+        bundle.putString("normalPowerUsedValue", "" + formatNum("###,###", normalPowerUsedValue));
+
+        int hpuv = (int) highPowerUsedValue;
+        bundle.putString("highPowerUsedValue", "" + formatNum("###,###", hpuv));
+
+        int lvc = (int) lowValueCost;
+        bundle.putString("lowValueCost", "" + formatNum("###,###", lvc));
+
+        int nvc = (int) normalValueCost;
+        bundle.putString("normalValueCost", "" + formatNum("###,###", nvc));
+
+        int hvc = (int) highValueCost;
+        bundle.putString("highValueCost", "" + formatNum("###,###", hvc));
+
+        int ac = (int) actualCost;
+        bundle.putString("actualCost", "" + formatNum("###,###", ac));
+
+        int cp = (int) counterPrice;
+        bundle.putString("counterPrice", "" + formatNum("###,###", cp));
+
+        bundle.putString("fee", "" + formatNum("###,###.##", fee));
+
+        int d = (int) dept;
+        bundle.putString("dept", "" + formatNum("###,###", d));
+
+        bundle.putString("totalCost", "" + formatNum("###,###.##", totalCost));
 
         startActivity(intent);
     }
-/*
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        powerUsedValue = 0;
+        lowPowerUsedValue = 0;
+        normalPowerUsedValue = 0;
+        highPowerUsedValue = 0;
+        lowValueCost = 0;
+        normalValueCost = 0;
+        highValueCost = 0;
+        counterPrice = 0;
+        fee = 0;
+        dept = 0;
+        totalCost = 0;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        int currentValue = 0;
+        int lastValue = 0;
+
+        int c = 0;
+        int l = 0;
+        try {
+            c = Integer.parseInt(this.currentValue.getText().toString());
+            l = Integer.parseInt(this.lastValue.getText().toString());
+        } catch (Exception e) {
+
+        } finally {
+            if (c > 0 && l > 0) {
+                currentValue = c;
+                lastValue = l;
+            }
+        }
+
+        powerUsedValue = currentValue - lastValue;
+        counterPrice = getCounterPriceByType();
+        dept = TryGetDept();
+    }
+
+    /*
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -243,4 +412,5 @@ public class MainActivity extends AppCompatActivity {
         this.counterType.setSelection(counterType);
 
     }*/
+
 }
