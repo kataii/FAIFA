@@ -18,15 +18,18 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int powerUsedValue, multiplier, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, counterPosition;
-    public static double actualCost, totalCost, lowValueCost, normalValueCost, highValueCost, fee, dept, counterPrice;
+    public static int usedValue, multiplier, value1, value2, value3, value4, value5, value6, counterPosition;
+    public static double actualCost, totalCost, cost1, cost2, cost3, cost4, cost5, cost6, fee, dept, counterPrice;
     public static Bundle bundle = new Bundle();
     Spinner counterType;
     TextView powerUsed;
     EditText lastValue, currentValue, eDept, eMultiplier;
-    double lowValuePrice = 348;
-    double normalValuePrice = 414;
-    double highValuePrice = 999;
+    double price1 = 348;
+    double price2 = 414;
+    double price3 = 799;
+    double price4 = 880;
+    double price5 = 965;
+    double price6 = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         lastValue = (EditText) findViewById(R.id.lastValue);
         currentValue = (EditText) findViewById(R.id.currentValue);
         powerUsed = (TextView) findViewById(R.id.powerUsed);
+
         eDept = (EditText) findViewById(R.id.dept);
         counterType = (Spinner) findViewById(R.id.counterType);
         eMultiplier = (EditText) findViewById(R.id.multiplier); multiplier = 1; eMultiplier.setText("" + multiplier);
@@ -56,41 +60,148 @@ public class MainActivity extends AppCompatActivity {
 
 
                 valueSync2();
-                powerUsed.setText("" + powerUsedValue);
-                powerUsedError(powerUsedValue);
+                powerUsed.setText("" + usedValue);
+                powerUsedError(usedValue);
 
-                if (powerUsedError(powerUsedValue)) {
+                if (powerUsedError(usedValue)) {
                     powerUsedError();
                 } else {
-                    if (powerUsedValue <= 25) {
-                        lowPowerUsedValue = powerUsedValue;
-                        lowValueCost = powerUsedValue * lowValuePrice;
+
+                    int mode = 0;
+
+                    if (usedValue <= 25) {
+                        mode = 1;
+                    } else if (usedValue >= 26 && usedValue <= 150) {
+                        mode = 2;
+                    } else if (usedValue >= 151 && usedValue <= 300) {
+                        mode = 3;
+                    } else if (usedValue >= 301 && usedValue <= 400) {
+                        mode = 4;
+                    } else if (usedValue >= 401 && usedValue <= 500) {
+                        mode = 5;
+                    } else if (usedValue > 500) {
+                        mode = 6;
+                    }
+
+                    switch (mode) {
+                        case 1:
+                            /*lowPowerUsedValue = usedValue;
+                            lowValueCost = usedValue * lowValuePrice;
+                            actualCost = lowValueCost;*/
+                            value1 = usedValue;
+                            cost1 = cost1 * price1;
+
+                            actualCost = cost1;
+                            break;
+                        case 2:
+                            value1 = 25;
+                            cost1 = cost1 * price1;
+
+                            value2 = usedValue - value1;
+                            cost2 = value2 * price2;
+
+                            actualCost = cost1 + cost2;
+                            break;
+                        case 3:
+                            value1 = 25;
+                            cost1 = cost1 * price1;
+
+                            value2 = 150 - value1;
+                            cost2 = value2 * price2;
+
+                            value3 = usedValue - 150;
+                            cost3 = value3 * price3;
+
+                            actualCost = cost1 + cost2 + cost3;
+                            break;
+                        case 4:
+                            value1 = 25;
+                            cost1 = cost1 * price1;
+
+                            value2 = 150 - value1;
+                            cost2 = value2 * price2;
+
+                            value3 = usedValue - 150;
+                            cost3 = value3 * price3;
+
+                            value4 = usedValue - 300;
+                            cost4 = value4 * price4;
+
+                            actualCost = cost1 + cost2 + cost3 + cost4;
+                            break;
+                        case 5:
+                            value1 = 25;
+                            cost1 = cost1 * price1;
+
+                            value2 = 150 - value1;
+                            cost2 = value2 * price2;
+
+                            value3 = usedValue - 150;
+                            cost3 = value3 * price3;
+
+                            value4 = usedValue - 300;
+                            cost4 = value4 * price4;
+
+                            value5 = usedValue - 400;
+                            cost5 = value5 * price5;
+
+                            actualCost = cost1 + cost2 + cost3 + cost4 + cost5;
+                            break;
+                        case 6:
+                            value1 = 25;
+                            cost1 = cost1 * price1;
+
+                            value2 = 150 - value1;
+                            cost2 = value2 * price2;
+
+                            value3 = usedValue - 150;
+                            cost3 = value3 * price3;
+
+                            value4 = usedValue - 300;
+                            cost4 = value4 * price4;
+
+                            value5 = usedValue - 400;
+                            cost5 = value5 * price5;
+
+                            value6 = usedValue - 400;
+                            cost6 = value6 * price6;
+
+                            actualCost = cost1 + cost2 + cost3 + cost4 + cost5 + cost6;
+                            break;
+                        default:
+                            powerUsedError();
+                    }
+
+
+                    /*if (usedValue <= 25) {
+                        lowPowerUsedValue = usedValue;
+                        lowValueCost = usedValue * lowValuePrice;
                         actualCost = lowValueCost;
                     }
 
-                    if (powerUsedValue >= 26 && powerUsedValue <= 150) {
+                    if (usedValue >= 26 && usedValue <= 150) {
                         lowPowerUsedValue = 25;
                         lowValueCost = lowPowerUsedValue * lowValuePrice;
-                        normalPowerUsedValue = powerUsedValue - lowPowerUsedValue;
-                        normalValueCost = (powerUsedValue - lowPowerUsedValue) * normalValuePrice;
+                        normalPowerUsedValue = usedValue - lowPowerUsedValue;
+                        normalValueCost = (usedValue - lowPowerUsedValue) * normalValuePrice;
                         actualCost = lowValueCost + normalValueCost;
                     }
 
-                    if (powerUsedValue > 150) {
+                    if (usedValue > 150) {
                         lowPowerUsedValue = 25;
                         lowValueCost = lowPowerUsedValue * lowValuePrice;
                         normalPowerUsedValue = (150 - lowPowerUsedValue);
                         normalValueCost = normalPowerUsedValue * normalValuePrice;
-                        highPowerUsedValue = powerUsedValue - 150;
+                        highPowerUsedValue = usedValue - 150;
                         highValueCost = highPowerUsedValue * highValuePrice;
                         actualCost = lowValueCost + normalValueCost + highValueCost;
-                    }
+                    }*/
 
                     dept = TryGetDept();
                     counterPrice = getCounterPriceByType();
                     fee = (counterPrice + actualCost) * 0.1;
                     totalCost = actualCost + fee + counterPrice + dept;
-                    showDialog(counterPrice, actualCost, fee, dept, totalCost, multiplier);
+//                    showDialog(counterPrice, actualCost, fee, dept, totalCost, multiplier);
                     startViewDetailsActivity();
                 }
             }
@@ -101,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         Dialog d = new Dialog(this);
         d.setTitle("ເກີດຂໍ້ຜິດພາດ");
         TextView tv = new TextView(this);
-        tv.setText("ເລັກຈົດຄັ້ງນີ້ຕ້ອງຫຼາຍກວ່າເລກຈົດຄັ້ງກ່ອນ!");
+        tv.setText("ກະລຸນາກວດສອບເລກທີ່ຈົດໃຫ້ຖືກຕ້ອງ");
         tv.setPadding(20, 20, 20, 20);
         d.setContentView(tv);
         d.show();
@@ -124,13 +235,13 @@ public class MainActivity extends AppCompatActivity {
     private void valueSync2() {
         try {
             multiplier = Integer.parseInt(eMultiplier.getText().toString());
-            powerUsedValue = ((Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString()))*multiplier;
-            Log.i("MainActivity", "" + powerUsedValue);
+            usedValue = ((Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString()))*multiplier;
+            Log.i("MainActivity", "" + usedValue);
         } catch (Exception e) {
 
         } finally {
-            if (powerUsedValue > 0) {
-                powerUsed.setText("" + powerUsedValue);
+            if (usedValue > 0) {
+                powerUsed.setText("" + usedValue);
             }
         }
     }
@@ -142,13 +253,13 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
                     try {
-                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
-                        Log.i("MainActivity", " " + powerUsedValue);
+                        usedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + usedValue);
                     } catch (Exception e) {
 
                     } finally {
-//                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+//                        if (usedValue > 0) {
+                            powerUsed.setText("" + usedValue);
 //                        }
                     }
                 }
@@ -159,13 +270,13 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
                     try {
-                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
-                        Log.i("MainActivity", " " + powerUsedValue);
+                        usedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + usedValue);
                     } catch (Exception e) {
 
                     } finally {
-//                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+//                        if (usedValue > 0) {
+                            powerUsed.setText("" + usedValue);
 //                        }
                     }
                 }
@@ -177,13 +288,13 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if (b) {
                     try {
-                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
-                        Log.i("MainActivity", " " + powerUsedValue);
+                        usedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + usedValue);
                     } catch (Exception e) {
 
                     } finally {
-//                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+//                        if (usedValue > 0) {
+                            powerUsed.setText("" + usedValue);
 //                        }
                     }
                 }
@@ -194,13 +305,13 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if (b) {
                     try {
-                        powerUsedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
-                        Log.i("MainActivity", " " + powerUsedValue);
+                        usedValue = (Integer.parseInt(currentValue.getText().toString())) - Integer.parseInt(lastValue.getText().toString());
+                        Log.i("MainActivity", " " + usedValue);
                     } catch (Exception e) {
 
                     } finally {
-//                        if (powerUsedValue > 0) {
-                            powerUsed.setText("" + powerUsedValue);
+//                        if (usedValue > 0) {
+                            powerUsed.setText("" + usedValue);
 //                        }
                     }
                 }
@@ -226,7 +337,17 @@ public class MainActivity extends AppCompatActivity {
     private void showDialog(double counterPrice, double actualCost, double fee, double dept, double totalCost, int multiplier) {
         Dialog d = new Dialog(this);
         TextView tv = new TextView(this);
-        tv.setText("Power " + lowPowerUsedValue + "kW price: " + lowValueCost + "\n" + "Power " + normalPowerUsedValue + "kW: " + normalValueCost + "\n" + "Power " + highPowerUsedValue + "kW: " + highValueCost + "\n" + "Actual price: " + (actualCost) + "\n" + "Fee: " + fee + "\n" + "Counter Price: " + counterPrice + "\n" + "Dept: " + dept + "\n" + "Total: " + totalCost);
+        tv.setText("Power " + value1 + "kW price: " + cost1 + "\n"
+                + "Power " + value2 + "kW: " + cost2 + "\n"
+                + "Power " + value3 + "kW: " + cost3 + "\n"
+                + "Power " + value4 + "kW: " + cost4 + "\n"
+                + "Power " + value5 + "kW: " + cost5 + "\n"
+                + "Power " + value6 + "kW: " + cost6 + "\n"
+                + "Actual price: " + actualCost + "\n"
+                + "Fee: " + fee + "\n" + "Counter Price: "
+                + counterPrice + "\n"
+                + "Dept: " + dept + "\n"
+                + "Total: " + totalCost);
         tv.setPadding(20, 20, 20, 20);
         d.setContentView(tv);
 //        d.show();
@@ -303,25 +424,39 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewDetails.class);
 
 //        powerUsed, lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, lowValueCost, normalValueCost, highValueCost, actualCost, counterPrice, fee, dept, totalCost;
-        bundle.putString("powerUsedValue", "" + formatNum("###,###", powerUsedValue));
+        bundle.putString("usedValue", "" + formatNum("###,###", usedValue));
 
         bundle.putString("multiplier", "" + multiplier);
 
-        bundle.putString("lowPowerUsedValue", "" + formatNum("###,###", lowPowerUsedValue));
+        bundle.putString("value1", "" + formatNum("###,###", value1));
 
-        bundle.putString("normalPowerUsedValue", "" + formatNum("###,###", normalPowerUsedValue));
+        bundle.putString("value2", "" + formatNum("###,###", value2));
 
-        int hpuv = (int) highPowerUsedValue;
-        bundle.putString("highPowerUsedValue", "" + formatNum("###,###", hpuv));
+        bundle.putString("value3", "" + formatNum("###,###", value3));
 
-        int lvc = (int) lowValueCost;
-        bundle.putString("lowValueCost", "" + formatNum("###,###", lvc));
+        bundle.putString("value4", "" + formatNum("###,###", value4));
 
-        int nvc = (int) normalValueCost;
-        bundle.putString("normalValueCost", "" + formatNum("###,###", nvc));
+        bundle.putString("value5", "" + formatNum("###,###", value5));
 
-        int hvc = (int) highValueCost;
-        bundle.putString("highValueCost", "" + formatNum("###,###", hvc));
+        bundle.putString("value6", "" + formatNum("###,###", value6));
+
+        int mCost1 = (int) cost1;
+        bundle.putString("lowValueCost", "" + formatNum("###,###", mCost1));
+
+        int mCost2 = (int) cost2;
+        bundle.putString("lowValueCost", "" + formatNum("###,###", mCost2));
+
+        int mCost3 = (int) cost3;
+        bundle.putString("lowValueCost", "" + formatNum("###,###", mCost3));
+
+        int mCost4 = (int) cost4;
+        bundle.putString("lowValueCost", "" + formatNum("###,###", mCost4));
+
+        int mCost5 = (int) cost5;
+        bundle.putString("lowValueCost", "" + formatNum("###,###", mCost5));
+
+        int mCost6 = (int) cost6;
+        bundle.putString("lowValueCost", "" + formatNum("###,###", mCost6));
 
         int ac = (int) actualCost;
         bundle.putString("actualCost", "" + formatNum("###,###", ac));
@@ -343,13 +478,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        powerUsedValue = 0;
-        lowPowerUsedValue = 0;
-        normalPowerUsedValue = 0;
-        highPowerUsedValue = 0;
-        lowValueCost = 0;
-        normalValueCost = 0;
-        highValueCost = 0;
+        usedValue = 0;
+        value1 = 0;
+        value2 = 0;
+        value3 = 0;
+        value4 = 0;
+        value5 = 0;
+        value6 = 0;
+        cost1 = 0;
+        cost2 = 0;
+        cost3 = 0;
+        cost4 = 0;
+        cost5 = 0;
+        cost6 = 0;
         counterPrice = 0;
         fee = 0;
         dept = 0;
@@ -376,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        powerUsedValue = currentValue - lastValue;
+        usedValue = currentValue - lastValue;
         counterPrice = getCounterPriceByType();
         dept = TryGetDept();
     }
@@ -388,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
 
         outState.putString("currentValue", "" + currentValue);
         outState.putString("lastValue", "" + lastValue);
-        outState.putString("powerUsedValue", "" + powerUsedValue);
+        outState.putString("usedValue", "" + usedValue);
         outState.putInt("counterType", counterPosition);
         outState.putString("dept", "" + dept);
 
@@ -404,8 +545,8 @@ public class MainActivity extends AppCompatActivity {
         String currentValue = inState.getString("currentValue");
         this.currentValue.setText(currentValue);
         Log.i("Current Value: ", currentValue);
-        String powerUsedValue = inState.getString("powerUsedValue");
-        powerUsed.setText(powerUsedValue);
+        String usedValue = inState.getString("usedValue");
+        powerUsed.setText(usedValue);
         String dept = inState.getString("dept");
         eDept.setText(dept);
         int counterType = inState.getInt("counterType");

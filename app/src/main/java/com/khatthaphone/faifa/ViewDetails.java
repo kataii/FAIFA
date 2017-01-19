@@ -13,10 +13,10 @@ import java.text.DecimalFormat;
 
 public class ViewDetails extends AppCompatActivity {
 
-    TextView lowPowerUsedValue, normalPowerUsedValue, highPowerUsedValue, lowValueCost, normalValueCost, highValueCost, counterPrice, fee, dept, totalCost, multiplier;
-    EditText powerUsed, actualCost;
-    int iPowerUsedValue, iLowPowerUsedValue, iNormalPowerUsedValue, iHighPowerUsedValue;
-    Double iLowValueCost, iNormalValueCost, iHighValueCost, iActualCost, iCounterPrice, iFee, iDept, iTotalCost;
+    TextView tValue1, tValue2, tValue3, tValue4, tValue5, tValue6, tCost1, tCost2, tCost3, tCost4, tCost5, tCost6, tCounterPrice, tFee, tDept, tTotalCost, tMultiplier;
+    EditText ePowerUsed, eActualCost;
+    int usedValue, value1, value2, value3, value4, value5, value6;
+    Double cost1, cost2, cost3, cost4, cost5, cost6, actualCost, counterPrice, fee, dept, totalCost;
     String power;
     Bundle bundle;
 
@@ -41,32 +41,46 @@ public class ViewDetails extends AppCompatActivity {
     private void getExtras() {
 
 
-        String powerUsedValue = MainActivity.bundle.getString("powerUsedValue") + " kW";
-        powerUsed.setText(powerUsedValue);
-        String lowPowerUsedValue = MainActivity.bundle.getString("lowPowerUsedValue") + " kW";
-        this.lowPowerUsedValue.setText(lowPowerUsedValue);
-        String normalPowerUsedValue = MainActivity.bundle.getString("normalPowerUsedValue") + " kW";
-        this.normalPowerUsedValue.setText(normalPowerUsedValue);
-        String highPowerUsedValue = MainActivity.bundle.getString("highPowerUsedValue") + " kW";
-        this.highPowerUsedValue.setText(highPowerUsedValue);
-        String lowValueCost = MainActivity.bundle.getString("lowValueCost");
-        this.lowValueCost.setText(lowValueCost);
-        String normalValueCost = MainActivity.bundle.getString("normalValueCost");
-        this.normalValueCost.setText(normalValueCost);
-        String highValueCost = MainActivity.bundle.getString("highValueCost");
-        this.highValueCost.setText(highValueCost);
+        String usedValue = MainActivity.bundle.getString("usedValue") + " kW";
+        ePowerUsed.setText(usedValue);
+        String value1 = MainActivity.bundle.getString("value1") + " kW";
+        this.tValue1.setText(value1);
+        String value2 = MainActivity.bundle.getString("value2") + " kW";
+        this.tValue2.setText(value2);
+        String value3 = MainActivity.bundle.getString("value3") + " kW";
+        this.tValue3.setText(value3);
+        String value4 = MainActivity.bundle.getString("value4") + " kW";
+        this.tValue4.setText(value4);
+        String value5 = MainActivity.bundle.getString("value5") + " kW";
+        this.tValue5.setText(value5);
+        String value6 = MainActivity.bundle.getString("value6") + " kW";
+        this.tValue6.setText(value6);
+
+//        String cost1 = MainActivity.bundle.getString("cost1");
+//        this.tCost1.setText(cost1);
+//        String cost2 = MainActivity.bundle.getString("cost2");
+//        this.tCost2.setText(cost2);
+//        String cost3 = MainActivity.bundle.getString("cost3");
+//        this.tCost3.setText(cost3);
+//        String cost4 = MainActivity.bundle.getString("cost4");
+//        this.tCost4.setText(cost4);
+//        String cost5 = MainActivity.bundle.getString("cost5");
+//        this.tCost5.setText(cost5);
+//        String cost6 = MainActivity.bundle.getString("cost6");
+//        this.tCost6.setText(cost6);
+
         String multiplier = MainActivity.bundle.getString("multiplier");
-        this.multiplier.setText(multiplier);
+        this.tMultiplier.setText(multiplier);
         String actualCost = MainActivity.bundle.getString("actualCost");
-        this.actualCost.setText(actualCost);
+        this.eActualCost.setText(actualCost);
         String counterPrice = MainActivity.bundle.getString("counterPrice");
-        this.counterPrice.setText(counterPrice);
+        this.tCounterPrice.setText(counterPrice);
         String fee = MainActivity.bundle.getString("fee");
-        this.fee.setText(fee);
+        this.tFee.setText(fee);
         String dept = MainActivity.bundle.getString("dept");
-        this.dept.setText(dept);
+        this.tDept.setText(dept);
         String totalCost = MainActivity.bundle.getString("totalCost");
-        this.totalCost.setText(totalCost);
+        this.tTotalCost.setText(totalCost);
 
     }
 
@@ -77,21 +91,29 @@ public class ViewDetails extends AppCompatActivity {
     }
 
     private void castViews() {
-        powerUsed = (EditText) findViewById(R.id.powerUsedValue);
-        lowPowerUsedValue = (TextView) findViewById(R.id.lowPowerUsedValue);
-        normalPowerUsedValue = (TextView) findViewById(R.id.normalPowerUsedValue);
-        highPowerUsedValue = (TextView) findViewById(R.id.highPowerUsedValue);
-        lowValueCost = (TextView) findViewById(R.id.lowValueCost);
-        normalValueCost = (TextView) findViewById(R.id.normalValueCost);
-        highValueCost = (TextView) findViewById(R.id.highValueCost);
-        multiplier = (TextView) findViewById(R.id.multiplier);
-        actualCost = (EditText) findViewById(R.id.actualCost);
-        counterPrice = (TextView) findViewById(R.id.counterPrice);
-        fee = (TextView) findViewById(R.id.fee);
-        dept = (TextView) findViewById(R.id.dept);
-        totalCost = (TextView) findViewById(R.id.totalCost);
+        ePowerUsed = (EditText) findViewById(R.id.powerUsedValue);
+        tValue1 = (TextView) findViewById(R.id.value1);
+        tValue2 = (TextView) findViewById(R.id.value2);
+        tValue3 = (TextView) findViewById(R.id.value3);
+        tValue4 = (TextView) findViewById(R.id.value4);
+        tValue5 = (TextView) findViewById(R.id.value5);
+        tValue6 = (TextView) findViewById(R.id.value6);
 
-        actualCost.setFocusable(false);
+//        cost1 = (TextView) findViewById(R.id.cost1);
+//        cost2 = (TextView) findViewById(R.id.cost2);
+//        cost3 = (TextView) findViewById(R.id.cost3);
+//        cost4 = (TextView) findViewById(R.id.cost4);
+//        cost5 = (TextView) findViewById(R.id.cost5);
+//        cost6 = (TextView) findViewById(R.id.cost6);
+
+        tMultiplier = (TextView) findViewById(R.id.multiplier);
+        eActualCost = (EditText) findViewById(R.id.actualCost);
+        tCounterPrice = (TextView) findViewById(R.id.counterPrice);
+        tFee = (TextView) findViewById(R.id.fee);
+        tDept = (TextView) findViewById(R.id.dept);
+        tTotalCost = (TextView) findViewById(R.id.totalCost);
+
+        eActualCost.setFocusable(false);
     }
 
     private void styling() {
@@ -107,7 +129,7 @@ public class ViewDetails extends AppCompatActivity {
     }
 
     private void disableFocus() {
-        powerUsed.setFocusable(false);
+        ePowerUsed.setFocusable(false);
 //        lowPowerUsedValue.setFocusable(false);
 //        normalPowerUsedValue.setFocusable(false);
 //        highPowerUsedValue.setFocusable(false);

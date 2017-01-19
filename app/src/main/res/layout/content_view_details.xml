@@ -5,10 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.khatthaphone.faifa.ViewDetails"
     tools:showIn="@layout/activity_view_details">
@@ -50,7 +46,7 @@
 
                             <TextView
                                 android:gravity="right"
-                                android:id="@+id/powerUsedValue"
+                                android:id="@+id/usedValue"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"/>-->
@@ -88,7 +84,7 @@
                     android:text="0-25kV:" />
 
                 <TextView
-                    android:id="@+id/lowPowerUsedValue"
+                    android:id="@+id/value1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.8"
@@ -100,7 +96,7 @@
                     android:text=" = " />
 
                 <TextView
-                    android:id="@+id/lowValueCost"
+                    android:id="@+id/cost1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -125,7 +121,7 @@
                     android:text="26-150kV:" />
 
                 <TextView
-                    android:id="@+id/normalPowerUsedValue"
+                    android:id="@+id/value2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.8"
@@ -137,7 +133,7 @@
                     android:text=" = " />
 
                 <TextView
-                    android:id="@+id/normalValueCost"
+                    android:id="@+id/cost2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -159,10 +155,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.6"
-                    android:text="26-150kV:" />
+                    android:text="151-300kV:" />
 
                 <TextView
-                    android:id="@+id/highPowerUsedValue"
+                    android:id="@+id/value3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.8"
@@ -174,7 +170,118 @@
                     android:text=" = " />
 
                 <TextView
-                    android:id="@+id/highValueCost"
+                    android:id="@+id/cost3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
+                    android:text="301-400kV:" />
+
+                <TextView
+                    android:id="@+id/value4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" = " />
+
+                <TextView
+                    android:id="@+id/cost4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
+                    android:text="401-500:" />
+
+                <TextView
+                    android:id="@+id/value5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" = " />
+
+                <TextView
+                    android:id="@+id/cost5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
+                    android:text=">500:" />
+
+                <TextView
+                    android:id="@+id/value6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.8"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" = " />
+
+                <TextView
+                    android:id="@+id/cost6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
